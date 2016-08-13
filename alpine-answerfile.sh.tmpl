@@ -1,0 +1,29 @@
+KEYMAPOPTS="uk"
+HOSTNAMEOPTS="-n +VMNAME"
+
+# Contents of /etc/network/interfaces
+INTERFACESOPTS="auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet dhcp
+        hostname +VMNAME
+"
+
+# use Google's DNS
+# DNSOPTS="-d example.com 8.8.8.8"
+
+# Set timezone to Europe/London
+TIMEZONEOPTS="-z Europe/London"
+
+PROXYOPTS="none"
+
+# seems to be the fastest mirror
+APKREPOSOPTS="http://liskamm.alpinelinux.uk/v3.4/main"
+
+# Install OpenSSH and chrony
+SSHDOPTS="-c openssh"
+NTPOPTS="-c chrony"
+
+# use the whole disk in 'sys' mode
+DISKOPTS="-m sys /dev/sda"

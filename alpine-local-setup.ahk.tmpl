@@ -1,0 +1,50 @@
+SetTitleMatchMode, 2
+WinActivate, +VMNAME [Running]
+
+; login as root (no password)
+Sleep, 1000
+Send root{Enter}
+Sleep, 2000
+
+; set keyboard to UK layout
+Send setup-keymap{Enter}
+Sleep, 500
+Send uk{Enter}
+Sleep, 500
+
+; set up networking so we can fetch files
+Send vi /etc/network/interfaces{Enter}
+Sleep, 100
+; delete anything already there
+Send 20dd{Enter}
+Sleep, 100
+Send i
+Sleep, 100
+Send auto lo{Enter}
+Send iface lo inet loopback{Enter}
+Send {Enter}
+Send auto eth0{Enter}
+Send iface eth0 inet dhcp{Enter}
+Send {Space}   hostname +VMNAME{Enter}
+Sleep, 400
+Send {Esc}
+Sleep, 100
+Send :wq{Enter}
+Sleep, 400
+Send /etc/init.d/networking restart{Enter}
+Sleep, 10000
+
+; fetch alpine-setup answerfile
+Send wget http://+LOCALSERVER/alpine-answerfile.sh{Enter}
+Sleep, 4000
+Send setup-alpine -f alpine-answerfile.sh{Enter}
+Sleep, 1000
+
+; change the following to a root password of your choice
+Send +ROOTPASS{Enter}
+Sleep, 1000
+Send +ROOTPASS{Enter}
+
+Sleep, 20000
+; answer y to the "erase disks?" prompt
+Send y{Enter}

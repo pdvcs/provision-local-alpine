@@ -1,0 +1,15 @@
+SetTitleMatchMode, 2
+WinActivate, +VMNAME [Running]
+
+; login as root (with password)
+Sleep, 1000
+Send root{Enter}
+Sleep, 200
+Send +ROOTPASS{Enter}
+Sleep, 2000
+
+; fetch postinstall script
+Send wget http://+LOCALSERVER/alpine-postinstall.ash{Enter}
+Sleep, 4000
+
+Send ash alpine-postinstall.ash{Enter}
